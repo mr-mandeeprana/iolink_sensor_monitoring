@@ -1,0 +1,8 @@
+#! 0-mandeep-sensor-platform-namespace.yaml
+# Generated code, do not edit
+apiVersion: v1
+kind: Namespace
+metadata:
+    name: mandeep-sensor-platform
+    labels:
+        com.docker.compose.project: mandeep-sensor-platform

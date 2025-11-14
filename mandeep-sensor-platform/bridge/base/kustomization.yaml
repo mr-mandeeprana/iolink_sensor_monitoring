@@ -1,0 +1,17 @@
+#! kustomization.yaml
+# Generated code, do not edit
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+    - 0-mandeep-sensor-platform-namespace.yaml
+    - elasticsearch-deployment.yaml
+    - elasticsearch-es_data-persistentVolumeClaim.yaml
+    - elasticsearch-expose.yaml
+    - elasticsearch-service.yaml
+    - elk-net-network-policy.yaml
+    - kibana-deployment.yaml
+    - kibana-expose.yaml
+    - kibana-service.yaml
+    - nodered-deployment.yaml
+    - nodered-expose.yaml
+    - nodered-service.yaml

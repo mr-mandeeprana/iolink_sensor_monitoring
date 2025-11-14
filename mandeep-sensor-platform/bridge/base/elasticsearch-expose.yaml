@@ -1,0 +1,21 @@
+#! elasticsearch-expose.yaml
+# Generated code, do not edit
+apiVersion: v1
+kind: Service
+metadata:
+    name: elasticsearch
+    namespace: mandeep-sensor-platform
+    labels:
+        com.docker.compose.project: mandeep-sensor-platform
+        com.docker.compose.service: elasticsearch
+spec:
+    selector:
+        com.docker.compose.project: mandeep-sensor-platform
+        com.docker.compose.service: elasticsearch
+    ports:
+        - name: elasticsea-9200
+          port: 9200
+          targetPort: elasticsea-9200
+        - name: elasticsea-9300
+          port: 9300
+          targetPort: elasticsea-9300

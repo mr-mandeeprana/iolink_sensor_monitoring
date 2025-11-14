@@ -1,0 +1,36 @@
+#! kibana-deployment.yaml
+# Generated code, do not edit
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: kibana
+    namespace: mandeep-sensor-platform
+    labels:
+        com.docker.compose.project: mandeep-sensor-platform
+        com.docker.compose.service: kibana
+spec:
+    replicas: 1
+    selector:
+        matchLabels:
+            com.docker.compose.project: mandeep-sensor-platform
+            com.docker.compose.service: kibana
+    strategy:
+        type: Recreate
+    template:
+        metadata:
+            labels:
+                com.docker.compose.project: mandeep-sensor-platform
+                com.docker.compose.service: kibana
+                com.docker.compose.network.elk-net: "true"
+        spec:
+            restartPolicy: unless-stopped
+            containers:
+                - name: kibana
+                  image: docker.elastic.co/kibana/kibana:8.15.0
+                  imagePullPolicy: IfNotPresent
+                  env:
+                    - name: ELASTICSEARCH_HOSTS
+                      value: "http://elasticsearch:9200"
+                  ports:
+                    - name: kibana-5601
+                      containerPort: 5601

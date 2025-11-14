@@ -1,0 +1,53 @@
+#! elasticsearch-deployment.yaml
+# Generated code, do not edit
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: elasticsearch
+    namespace: mandeep-sensor-platform
+    labels:
+        com.docker.compose.project: mandeep-sensor-platform
+        com.docker.compose.service: elasticsearch
+spec:
+    replicas: 1
+    selector:
+        matchLabels:
+            com.docker.compose.project: mandeep-sensor-platform
+            com.docker.compose.service: elasticsearch
+    strategy:
+        type: Recreate
+    template:
+        metadata:
+            labels:
+                com.docker.compose.project: mandeep-sensor-platform
+                com.docker.compose.service: elasticsearch
+                com.docker.compose.network.elk-net: "true"
+        spec:
+            restartPolicy: unless-stopped
+            containers:
+                - name: elasticsearch
+                  image: docker.elastic.co/elasticsearch/elasticsearch:8.15.0
+                  imagePullPolicy: IfNotPresent
+                  env:
+                    - name: ES_JAVA_OPTS
+                      value: "-Xms1g -Xmx1g"
+                    - name: cluster.name
+                      value: "es-cluster"
+                    - name: discovery.type
+                      value: "single-node"
+                    - name: node.name
+                      value: "es-node-1"
+                    - name: xpack.security.enabled
+                      value: "false"
+                  ports:
+                    - name: elasticsea-9200
+                      containerPort: 9200
+                    - name: elasticsea-9300
+                      containerPort: 9300
+                  volumeMounts:
+                    - name: usr-share-elasticsearch-data
+                      mountPath: /usr/share/elasticsearch/data
+            volumes:
+                - name: usr-share-elasticsearch-data
+                  persistentVolumeClaim:
+                    claimName: elasticsearch-es-data

@@ -1,0 +1,23 @@
+# check if there is at least one published port
+
+#! elasticsearch-service.yaml
+# Generated code, do not edit
+apiVersion: v1
+kind: Service
+metadata:
+    name: elasticsearch-published
+    namespace: mandeep-sensor-platform
+    labels:
+        com.docker.compose.project: mandeep-sensor-platform
+        com.docker.compose.service: elasticsearch
+spec:
+    selector:
+        com.docker.compose.project: mandeep-sensor-platform
+        com.docker.compose.service: elasticsearch
+    ports:
+        - name: elasticsea-9200
+          port: 9200
+          protocol: TCP
+          targetPort: elasticsea-9200
+
+# check if there is at least one published port

@@ -1,0 +1,9 @@
+#! elasticsearch-es_data-persistentVolumeClaim.yaml
+# Generated code, do not edit
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+    name: elasticsearch-es-data
+    namespace: mandeep-sensor-platform
+spec:
+    storageClassName: "hostpath" # see docker/desktop-storage-provisioner

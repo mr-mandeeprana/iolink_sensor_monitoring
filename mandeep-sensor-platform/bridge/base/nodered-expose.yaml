@@ -1,0 +1,18 @@
+#! nodered-expose.yaml
+# Generated code, do not edit
+apiVersion: v1
+kind: Service
+metadata:
+    name: nodered
+    namespace: mandeep-sensor-platform
+    labels:
+        com.docker.compose.project: mandeep-sensor-platform
+        com.docker.compose.service: nodered
+spec:
+    selector:
+        com.docker.compose.project: mandeep-sensor-platform
+        com.docker.compose.service: nodered
+    ports:
+        - name: nodered-1880
+          port: 1880
+          targetPort: nodered-1880

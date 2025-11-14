@@ -1,0 +1,35 @@
+#! nodered-deployment.yaml
+# Generated code, do not edit
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: nodered
+    namespace: mandeep-sensor-platform
+    labels:
+        com.docker.compose.project: mandeep-sensor-platform
+        com.docker.compose.service: nodered
+spec:
+    replicas: 1
+    selector:
+        matchLabels:
+            com.docker.compose.project: mandeep-sensor-platform
+            com.docker.compose.service: nodered
+    strategy:
+        type: Recreate
+    template:
+        metadata:
+            labels:
+                com.docker.compose.project: mandeep-sensor-platform
+                com.docker.compose.service: nodered
+                com.docker.compose.network.elk-net: "true"
+        spec:
+            restartPolicy: unless-stopped
+            containers:
+                - name: nodered
+                  image: mandeeprana1/sensor-platform:latest
+                  imagePullPolicy: IfNotPresent
+                  args:
+                    - /data/entrypoint.sh
+                  ports:
+                    - name: nodered-1880
+                      containerPort: 1880

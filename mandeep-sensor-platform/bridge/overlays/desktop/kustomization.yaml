@@ -1,0 +1,11 @@
+#! kustomization.yaml
+# Generated code, do not edit
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+    - ../../base
+patches:
+    - path: elasticsearch-es_data-persistentVolumeClaim.yaml
+    - path: elasticsearch-service.yaml
+    - path: kibana-service.yaml
+    - path: nodered-service.yaml

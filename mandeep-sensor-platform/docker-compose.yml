@@ -1,0 +1,52 @@
+version: "3.8"
+
+services:
+
+  nodered:
+    image: mandeep/sensor-platform:latest
+    container_name: nodered
+    restart: unless-stopped
+    ports:
+      - "1880:1880"
+    depends_on:
+      - elasticsearch
+    volumes:
+      - "C:/Users/mrman/Downloads/mandeep-sensor-platform/data:/data"
+    networks:
+      - elk-net
+
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.15.0
+    container_name: elasticsearch
+    restart: unless-stopped
+    environment:
+      - discovery.type=single-node
+      - xpack.security.enabled=false
+      - ES_JAVA_OPTS=-Xms1g -Xmx1g
+      - cluster.name=es-cluster
+      - node.name=es-node-1
+    ports:
+      - "9200:9200"
+    volumes:
+      - es_data:/usr/share/elasticsearch/data
+    networks:
+      - elk-net
+
+  kibana:
+    image: docker.elastic.co/kibana/kibana:8.15.0
+    container_name: kibana
+    restart: unless-stopped
+    depends_on:
+      - elasticsearch
+    environment:
+      - ELASTICSEARCH_HOSTS=http://elasticsearch:9200
+    ports:
+      - "5601:5601"
+    networks:
+      - elk-net
+
+volumes:
+  es_data:
+
+networks:
+  elk-net:
